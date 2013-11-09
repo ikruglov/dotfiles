@@ -1,0 +1,21 @@
+[user]
+    name = Ivan Kruglov
+    email = ivan.kruglov@booking.com
+[github]
+    name = Ivan Kruglov
+    email = ivan.kruglov@yahoo.com
+
+[alias]
+    co = checkout
+    st = status
+    ci = commit
+
+[color]
+    ui = auto
+
+[push]
+    default = upstream
+
+[grep]
+    lineNumber = true
+

@@ -1,0 +1,4 @@
+set hive.cli.print.header=true;
+set hive.cli.print.current.db=true;
+CREATE DATABASE IF NOT EXISTS ${env:USER};
+use ${env:USER};

@@ -1,0 +1,11 @@
+# General .alias file
+#
+alias vi=vim
+alias ll="ls -lh"
+alias grep='grep --color'
+
+if [[ $os == 'Linux' ]]; then
+    alias ls='ls --color=yes'
+else
+    alias ls='ls -G'
+fi
