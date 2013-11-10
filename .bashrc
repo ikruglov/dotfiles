@@ -5,6 +5,10 @@ if [ -r /etc/bashrc ]; then
     . /etc/bashrc
 fi
 
+if [ -f $HOME/.ssh/config ]; then
+    chmod 600 $HOME/.ssh/config
+fi
+
 os=$(uname -s)
 
 # General settings
