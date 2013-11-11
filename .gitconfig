@@ -13,6 +13,9 @@
 [color]
     ui = auto
 
+[pull]
+    rebase = true
+
 [push]
     default = upstream
 
