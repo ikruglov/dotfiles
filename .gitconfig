@@ -12,6 +12,10 @@
 
 [color]
     ui = auto
+    diff = auto
+    grep = auto
+    branch = auto
+    status = auto
 
 [pull]
     rebase = true
@@ -21,4 +25,9 @@
 
 [grep]
     lineNumber = true
+    extendedRegexp = true
+
+[log]
+    date = iso
+    decorate = short
 
