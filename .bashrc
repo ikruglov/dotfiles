@@ -43,3 +43,9 @@ fi
 if [ -r $HOME/.bash_booking ]; then
     . $HOME/.bash_booking
 fi
+
+# Setup Go environment
+if [[ -n `which go` ]]; then
+    test -d $HOME/gocode || mkdir $HOME/gocode
+    export GOPATH=$HOME/gocode
+fi
