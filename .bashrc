@@ -48,5 +48,6 @@ fi
 which go > /dev/null 2>&1
 if [[ $? -eq 0 ]]; then
     test -d $HOME/gocode || mkdir $HOME/gocode
-    export GOPATH=$HOME/gocode
+    export GOPATH="$HOME/gocode"
+    export PATH="$PATH:$HOME/gocode/bin/"
 fi
