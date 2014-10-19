@@ -3,6 +3,7 @@
 alias vi=vim
 alias ll="ls -lh"
 alias grep='grep --color'
+alias fuck='sudo $(history -p \!\!)'
 
 if [[ $os == 'Linux' ]]; then
     alias ls='ls --color=yes'
