@@ -51,3 +51,13 @@ if [[ $? -eq 0 ]]; then
     export GOPATH="$HOME/gocode"
     export PATH="$PATH:$HOME/gocode/bin/"
 fi
+
+# Setup git autocompletion and tree status reporting
+if [ -r $HOME/.git-completion ]; then
+    . $HOME/.git-completion
+fi
+
+#if [ -r $HOME/.git-prompt ]; then
+#    . $HOME/.git-prompt
+#    export PS1="$PS1 \$(__git_ps1 \"(%s)\") "
+#fi
