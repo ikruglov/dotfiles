@@ -53,11 +53,11 @@ if [[ $? -eq 0 ]]; then
 fi
 
 # Setup git autocompletion and tree status reporting
-if [ -r $HOME/.git-completion ]; then
-    . $HOME/.git-completion
+if [ -r $HOME/.git-completion.sh ]; then
+    . $HOME/.git-completion.sh
 fi
 
-#if [ -r $HOME/.git-prompt ]; then
-#    . $HOME/.git-prompt
+#if [ -r $HOME/.git-prompt.sh ]; then
+#    . $HOME/.git-prompt.sh
 #    export PS1="$PS1 \$(__git_ps1 \"(%s)\") "
 #fi
