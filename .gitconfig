@@ -8,6 +8,7 @@
     ci = commit
     br = branch -vv
     lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+    loglive = !git --no-pager log --graph --pretty=oneline --decorate --abbrev-commit --all
 
 [color]
     ui = auto
