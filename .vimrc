@@ -172,5 +172,13 @@ Helptags
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:go_play_open_browser = 0
 let g:go_fmt_fail_silently = 1
-let g:go_fmt_command = "goimports"
-"let g:go_fmt_autosave = 0
+"let g:go_fmt_command = "goimports"
+let g:go_fmt_autosave = 0
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => syntastic (https://github.com/scrooloose/syntastic)
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:syntastic_go_checkers = ['go', 'govet']
+let g:syntastic_enable_perl_checker = 0
+let g:loaded_syntastic_go_gofmt_checker = 0
+let g:syntastic_always_populate_loc_list = 1
