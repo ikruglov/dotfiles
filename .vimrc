@@ -134,6 +134,10 @@ let NERDTreeShowHidden=1
 let NERDTreeWinPos='right'
 let NERDTreeCaseSensitiveSort=1
 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => NERDComment
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+:let mapleader = ","
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => CtrlP (https://github.com/kien/ctrlp.vim)
