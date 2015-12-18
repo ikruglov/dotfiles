@@ -14,3 +14,5 @@ fi
 # MAC manipulators
 alias mac_random='sudo ifconfig en0 ether `openssl rand -hex 6 | sed "s/\(..\)/\1:/g; s/.$//"`'
 #alias mac_restore='sudo ifconfig en0 ether YOUR_ORIGINAL_MAC_ADDRESS_GOES_HERE'
+
+alias gitpush='while true; do git pull || break; git push && break; done'
