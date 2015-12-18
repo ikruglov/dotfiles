@@ -138,6 +138,7 @@ let NERDTreeCaseSensitiveSort=1
 " => NERDComment
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 :let mapleader = ","
+:let NERDSpaceDelims=1
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => CtrlP (https://github.com/kien/ctrlp.vim)
@@ -176,13 +177,27 @@ Helptags
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:go_play_open_browser = 0
 let g:go_fmt_fail_silently = 1
-"let g:go_fmt_command = "goimports"
-let g:go_fmt_autosave = 0
+let g:go_fmt_command = "goimports"
+"let g:go_fmt_autosave = 0
+let g:go_highlight_functions = 1
+let g:go_highlight_methods = 1
+let g:go_highlight_structs = 1
+let g:go_highlight_operators = 1
+let g:go_highlight_build_constraints = 1
+
+let g:loaded_syntastic_go_gofmt_checker = 0
+let g:syntastic_go_checkers = ['go', 'golint', 'errcheck']
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => syntastic (https://github.com/scrooloose/syntastic)
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:syntastic_go_checkers = ['go', 'govet']
+let g:syntastic_c_checkers = [] " disable syntastic for C (it's buggy)
+let g:syntastic_java_checkers = [] " disable syntastic for Java (it's buggy)
 let g:syntastic_enable_perl_checker = 0
-let g:loaded_syntastic_go_gofmt_checker = 0
 let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
