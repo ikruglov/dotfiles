@@ -39,6 +39,10 @@ if !exists('g:go_fmt_options')
     let g:go_fmt_options = ''
 endif
 
+if !exists("g:go_fmt_experimental")
+    let g:go_fmt_experimental = 0
+endif
+
 let s:got_fmt_error = 0
 
 "  we have those problems : 
@@ -53,62 +57,79 @@ function! go#fmt#Format(withGoimport)
     " save cursor position and many other things
     let l:curw=winsaveview()
 
-    " needed for testing if gofmt fails or not
-    let l:tmpname=tempname()
-    call writefile(getline(1,'$'), l:tmpname)
+    " Write current unsaved buffer to a temp file
+    let l:tmpname = tempname()
+    call writefile(getline(1, '$'), l:tmpname)
 
-    " save our undo file to be restored after we are done. This is needed to
-    " prevent an additional undo jump due to BufWritePre auto command and also
-    " restore 'redo' history because it's getting being destroyed every
-    " BufWritePre
-    let tmpundofile=tempname()
-    exe 'wundo! ' . tmpundofile
+    if g:go_fmt_experimental == 1
+        " save our undo file to be restored after we are done. This is needed to
+        " prevent an additional undo jump due to BufWritePre auto command and also
+        " restore 'redo' history because it's getting being destroyed every
+        " BufWritePre
+        let tmpundofile=tempname()
+        exe 'wundo! ' . tmpundofile
+    endif
 
     " get the command first so we can test it
     let fmt_command = g:go_fmt_command
     if a:withGoimport  == 1 
-        " check if the user has installed goimports
-        let bin_path = go#tool#BinPath(g:go_goimports_bin) 
-        if empty(bin_path) 
-            return 
-        endif
+        let fmt_command  = g:go_goimports_bin
+    endif
+
+    " check if the user has installed command binary.
+    " For example if it's goimports, let us check if it's installed,
+    " if not the user get's a warning via go#path#CheckBinPath()
+    let bin_path = go#path#CheckBinPath(fmt_command)
+    if empty(bin_path)
+        return
+    endif
+
+    if fmt_command != "gofmt"
+        " change GOPATH too, so goimports can pick up the correct library
+        let old_gopath = $GOPATH
+        let $GOPATH = go#path#Detect()
 
         let fmt_command = bin_path
     endif
 
     " populate the final command with user based fmt options
-    let command = fmt_command . ' ' . g:go_fmt_options
+    let command = fmt_command . ' -w '
+    if a:withGoimport  != 1 
+        let command  = command . g:go_fmt_options
+    endif
 
     " execute our command...
     let out = system(command . " " . l:tmpname)
 
-    "if there is no error on the temp file, gofmt again our original file
+    if fmt_command != "gofmt"
+        let $GOPATH = old_gopath
+    endif
+
+    "if there is no error on the temp file replace the output with the current
+    "file (if this fails, we can always check the outputs first line with:
+    "splitted =~ 'package \w\+')
     if v:shell_error == 0
         " remove undo point caused via BufWritePre
         try | silent undojoin | catch | endtry
 
-        " do not include stderr to the buffer, this is due to goimports/gofmt
-        " tha fails with a zero exit return value (sad yeah).
-        let default_srr = &srr
-        set srr=>%s 
+        " Replace current file with temp file, then reload buffer
+        let old_fileformat = &fileformat
+        call rename(l:tmpname, expand('%'))
+        silent edit!
+        let &fileformat = old_fileformat
+        let &syntax = &syntax
 
-        " execufe gofmt on the current buffer and replace it
-        silent execute "%!" . command
-
-        " only clear quickfix if it was previously set, this prevents closing
-        " other quickfixes
+        " clean up previous location list, but only if it's due fmt
         if s:got_fmt_error 
             let s:got_fmt_error = 0
-            call setqflist([])
-            cwindow
+            call go#list#Clean()
+            call go#list#Window()
         endif
-
-        " put back the users srr setting
-        let &srr = default_srr
     elseif g:go_fmt_fail_silently == 0 
-        "otherwise get the errors and put them to quickfix window
+        let splitted = split(out, '\n')
+        "otherwise get the errors and put them to location list
         let errors = []
-        for line in split(out, '\n')
+        for line in splitted
             let tokens = matchlist(line, '^\(.\{-}\):\(\d\+\):\(\d\+\)\s*\(.*\)')
             if !empty(tokens)
                 call add(errors, {"filename": @%,
@@ -121,19 +142,24 @@ function! go#fmt#Format(withGoimport)
             % | " Couldn't detect gofmt error format, output errors
         endif
         if !empty(errors)
-            call setqflist(errors, 'r')
+            call go#list#Populate(errors)
             echohl Error | echomsg "Gofmt returned error" | echohl None
         endif
+
         let s:got_fmt_error = 1
-        cwindow
+        call go#list#Window(len(errors))
+
+        " We didn't use the temp file, so clean up
+        call delete(l:tmpname)
     endif
 
-    " restore our undo history
-    silent! exe 'rundo ' . tmpundofile
-    call delete(tmpundofile)
+    if g:go_fmt_experimental == 1
+        " restore our undo history
+        silent! exe 'rundo ' . tmpundofile
+        call delete(tmpundofile)
+    endif
 
     " restore our cursor/windows positions
-    call delete(l:tmpname)
     call winrestview(l:curw)
 endfunction
 
