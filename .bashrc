@@ -44,12 +44,16 @@ if [ -r $HOME/.bash_booking ]; then
     . $HOME/.bash_booking
 fi
 
+if [ -r $HOME/.bash_secrets ]; then
+    source $HOME/.bash_secrets
+fi
+
 # Setup Go environment
 which go > /dev/null 2>&1
 if [[ $? -eq 0 ]]; then
     test -d $HOME/gocode || mkdir $HOME/gocode
     export GOPATH="$HOME/gocode"
-    export PATH="$PATH:$HOME/gocode/bin/"
+    export PATH="$PATH:$HOME/gocode/bin"
 fi
 
 # Setup git autocompletion and tree status reporting
