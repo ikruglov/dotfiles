@@ -32,3 +32,4 @@ getIP() -> {{
     httpRequest({url: 'http://api.ipify.org/?format=json', json: true},
                 function(res) { Status.setMessage('IP: ' + res.ip); });
 }}
+
