@@ -1,0 +1,34 @@
+set incsearch
+set smartcase
+set ignorecase
+
+set nosmoothscroll
+set noautofocus
+" set numerichints
+" set typelinkhints
+
+let barposition = "bottom"
+let mapleader = ","
+
+" alias ':g' to ':tabnew google'
+command g tabnew google
+
+map <Leader>r reloadTabUncached
+map <Leader>x :restore<Space>
+map <C-d> scrollPageDown
+map <C-u> scrollPageUp
+unmap d
+unmap u
+
+let configpath = '/Users/ikruglov/.cvimrc'
+set localconfig " Update settings via a local file (and the `:source` command) rather
+                " than the default options page in chrome
+                " " As long as localconfig is set in the .cvimrc file. cVim
+                " will continue to read
+                " settings from there
+                
+" Code blocks (see below for more info)
+getIP() -> {{
+    httpRequest({url: 'http://api.ipify.org/?format=json', json: true},
+                function(res) { Status.setMessage('IP: ' + res.ip); });
+}}
