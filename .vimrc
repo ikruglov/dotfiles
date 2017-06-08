@@ -185,20 +185,65 @@ let g:go_highlight_structs = 1
 let g:go_highlight_operators = 1
 let g:go_highlight_build_constraints = 1
 
-let g:go_bin_path = expand("~/gocode/bin/")
-let g:loaded_syntastic_go_gofmt_checker = 0
-let g:syntastic_go_checkers = ['golint', 'govet', 'errcheck']
-let g:syntastic_mode_map = { 'mode': 'active', 'passive_filetypes': ['go'] }
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => vim-rust (https://github.com/rust-lang/rust.vim)
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:rustfmt_autosave = 1
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => syntastic (https://github.com/scrooloose/syntastic)
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:loaded_syntastic_go_gofmt_checker = 0
+let g:syntastic_go_checkers = ['golint', 'govet', 'errcheck' ]
+let g:syntastic_mode_map = { 'mode': 'active', 'passive_filetypes': ['perl'] }
 let g:syntastic_c_checkers = [] " disable syntastic for C (it's buggy)
 let g:syntastic_java_checkers = [] " disable syntastic for Java (it's buggy)
 let g:syntastic_enable_perl_checker = 0
 let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
+let g:syntastic_check_on_open = 0
+let g:syntastic_check_on_wq = 1
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => neocomplete (https://github.com/Shougo/neocomplete.vim)
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+if !exists('g:pathogen_disabled')
+    let g:pathogen_disabled = []
+endif
+
+" neocomplete requires Vim 7.3 and Lua
+if v:version < 703 || !has('lua') || (v:version == 703 && !has('patch885'))
+	call add(g:pathogen_disabled, 'neocomplete')
+endif
+
+if index(g:pathogen_disabled, 'neocomplete') == -1
+    let g:acp_enableAtStartup = 0
+    let g:neocomplete#enable_smart_case = 1
+    let g:neocomplete#enable_at_startup = 1
+    let g:neocomplete#enable_auto_select = 1
+    let g:neocomplete#auto_completion_start_length = 2
+    let g:neocomplete#sources#syntax#min_keyword_length = 3
+    let g:neocomplete#sources#tags#cache_limit_size = 16777216 " 16MB
+    set completeopt-=preview
+
+    " highlight Pmenu ctermbg=8 guibg=#606060
+    " highlight PmenuSel ctermbg=1 guifg=#dddd00 guibg=#1f82cd
+    " highlight PmenuSbar ctermbg=0 guibg=#d6d6d6
+
+    " Plugin key-mappings.
+    inoremap <expr> <C-g> neocomplete#undo_completion()
+    inoremap <expr> <C-l> neocomplete#complete_common_string()
+
+    " Recommended key-mappings.
+    " <CR>: cancel popup and insert newline.
+    inoremap <silent> <CR> <C-r>=neocomplete#smart_close_popup()<CR><CR>
+    " <TAB>: completion.
+    inoremap <expr> <Tab> pumvisible() ? "\<C-y>" : "\<Tab>"
+    " <C-h>, <BS>: close popup and delete backword char.
+    inoremap <expr> <C-h> neocomplete#smart_close_popup()."\<C-h>"
+    inoremap <expr> <BS>  neocomplete#smart_close_popup()."\<C-h>"
+    inoremap <expr> <C-y> neocomplete#close_popup()
+    inoremap <expr> <C-e> neocomplete#cancel_popup()
+endif
 
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}

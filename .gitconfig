@@ -9,6 +9,13 @@
     br = branch -vv
     lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
     loglive = !git --no-pager log --graph --pretty=oneline --decorate --abbrev-commit --all
+    gr = log --color --date=relative --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --source --all --abbrev-commit -S 
+
+[merge]
+#    conflictstyle = diff3
+
+[rerere]
+    enabled = true
 
 [color]
     ui = auto
@@ -28,6 +35,10 @@
     extendedRegexp = true
 
 [log]
+    #date = relative
     date = iso
     decorate = short
     abbrevCommit = true
+
+[http]
+	cookiefile = /Users/ikruglov/.gitcookies
