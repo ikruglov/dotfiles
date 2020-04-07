@@ -1,6 +1,10 @@
 # Tmux Plugin Manager
 
-Installs and loads TMUX plugins.
+[![Build Status](https://travis-ci.org/tmux-plugins/tpm.svg?branch=master)](https://travis-ci.org/tmux-plugins/tpm)
+
+Installs and loads `tmux` plugins.
+
+Tested and working on Linux, OSX, and Cygwin.
 
 ### Installation
 
@@ -8,77 +12,101 @@ Requirements: `tmux` version 1.9 (or higher), `git`, `bash`.
 
 Clone TPM:
 
-    $ git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+```bash
+$ git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+```
 
-Put this at the bottom of your `.tmux.conf` (backslashes at the end of the lines
-are required):
+Put this at the bottom of `~/.tmux.conf` (`$XDG_CONFIG_HOME/tmux/tmux.conf`
+works too):
 
-    # List of plugins
-    # Supports `github_username/repo` or full git URLs
-    set -g @tpm_plugins "              \
-      tmux-plugins/tpm                 \
-      tmux-plugins/tmux-sensible       \
-    "
-    # Other examples:
-    # github_username/plugin_name    \
-    # git@github.com/user/plugin     \
-    # git@bitbucket.com/user/plugin  \
+```bash
+# List of plugins
+set -g @plugin 'tmux-plugins/tpm'
+set -g @plugin 'tmux-plugins/tmux-sensible'
 
-    # Initializes TMUX plugin manager.
-    # Keep this line at the very bottom of tmux.conf.
-    run-shell ~/.tmux/plugins/tpm/tpm
+# Other examples:
+# set -g @plugin 'github_username/plugin_name'
+# set -g @plugin 'git@github.com/user/plugin'
+# set -g @plugin 'git@bitbucket.com/user/plugin'
+
+# Initialize TMUX plugin manager (keep this line at the very bottom of tmux.conf)
+run -b '~/.tmux/plugins/tpm/tpm'
+```
 
 Reload TMUX environment so TPM is sourced:
 
-    # type this in terminal
-    $ tmux source-file ~/.tmux.conf
+```bash
+# type this in terminal if tmux is already running
+$ tmux source ~/.tmux.conf
+```
 
 That's it!
 
 ### Installing plugins
 
-1. add a new plugin to the `@tpm_plugins` list
-2. hit `prefix + I` (I as in *I*nstall) to fetch the plugin
+1. Add new plugin to `~/.tmux.conf` with `set -g @plugin '...'`
+2. Press `prefix` + <kbd>I</kbd> (capital i, as in **I**nstall) to fetch the plugin.
 
 You're good to go! The plugin was cloned to `~/.tmux/plugins/` dir and sourced.
 
 ### Uninstalling plugins
 
-1. remove plugin from `@tpm_plugins` list
-2. All the plugins are installed to `~/.tmux/plugins/`. Find plugin
-  directory there and just remove it.
+1. Remove (or comment out) plugin from the list.
+2. Press `prefix` + <kbd>alt</kbd> + <kbd>u</kbd> (lowercase u as in **u**ninstall) to remove the plugin.
+
+All the plugins are installed to `~/.tmux/plugins/` so alternatively you can
+find plugin directory there and remove it.
 
 ### Key bindings
 
-`prefix + I`
-- installs new plugins from github or any other git repo
-- refreshes TMUX environment
+`prefix` + <kbd>I</kbd>
+- Installs new plugins from GitHub or any other git repository
+- Refreshes TMUX environment
 
-`prefix + U`
+`prefix` + <kbd>U</kbd>
 - updates plugin(s)
 
-### List of plugins
+`prefix` + <kbd>alt</kbd> + <kbd>u</kbd>
+- remove/uninstall plugins not on the plugin list
+
+### More plugins
 
 For more plugins, check [here](https://github.com/tmux-plugins).
 
-### Wiki pages
+### Docs
 
-More advanced features, regular users probably do not need this:
+- [Help, tpm not working](docs/tpm_not_working.md) - problem solutions
 
-- [installing plugins via the command line](https://github.com/tmux-plugins/tpm/wiki/Installing-plugins-via-the-command-line-only)
-- [changing plugins install dir](https://github.com/tmux-plugins/tpm/wiki/Changing-plugins-install-dir)
+More advanced features and instructions, regular users probably do not need
+this:
 
-### Creating plugins
-
-[How to create a plugin](HOW_TO_PLUGIN.md). It's easy.
+- [How to create a plugin](docs/how_to_create_plugin.md). It's easy.
+- [Managing plugins via the command line](docs/managing_plugins_via_cmd_line.md)
+- [Changing plugins install dir](docs/changing_plugins_install_dir.md)
+- [Automatic TPM installation on a new machine](docs/automatic_tpm_installation.md)
 
 ### Tests
 
-Requirements: [vagrant](https://www.vagrantup.com/)
+Tests for this project run on [Travis CI](https://travis-ci.org/tmux-plugins/tpm).
 
-To run a test suite:
+When run locally, [vagrant](https://www.vagrantup.com/) is required.
+Run tests with:
 
-    $ ./run-tests
+```bash
+# within project directory
+$ ./run_tests
+```
+
+### Other goodies
+
+- [tmux-copycat](https://github.com/tmux-plugins/tmux-copycat) - a plugin for
+  regex searches in tmux and fast match selection
+- [tmux-yank](https://github.com/tmux-plugins/tmux-yank) - enables copying
+  highlighted text to system clipboard
+- [tmux-open](https://github.com/tmux-plugins/tmux-open) - a plugin for quickly
+  opening highlighted file or a url
+- [tmux-continuum](https://github.com/tmux-plugins/tmux-continuum) - automatic
+  restoring and continuous saving of tmux env
 
 ### License
 
