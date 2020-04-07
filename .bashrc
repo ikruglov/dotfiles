@@ -13,9 +13,10 @@ os=$(uname -s)
 
 # General settings
 export EDITOR=vim
+export LANG=en_US.UTF-8
 export PATH="$HOME/bin:$PATH:/sbin:/usr/sbin"
 if [[ $os == 'Darwin' ]]; then
-    export PATH="/opt/local/bin:/opt/local/sbin:$PATH"
+    export PATH="/usr/local/sbin:/opt/local/bin:/opt/local/sbin:$PATH"
 fi
 
 export HISTTIMEFORMAT="%Y-%m-%d %H:%M:%S:"
@@ -40,66 +41,23 @@ if [ -r $HOME/.bash_alias ]; then
     . $HOME/.bash_alias
 fi
 
-if [ -r $HOME/.bash_booking ]; then
-    . $HOME/.bash_booking
+if [ -r $HOME/.bash_corporate ]; then
+    . $HOME/.bash_corporate
 fi
 
 if [ -r $HOME/.bash_secrets ]; then
     source $HOME/.bash_secrets
 fi
 
-# Setup Go environment
-which go > /dev/null 2>&1
-if [[ $? -eq 0 ]]; then
-    if [ -d $HOME/gocode ]; then
-        export GOPATH="$HOME/gocode"
-        export PATH="$PATH:$HOME/gocode/bin"
-    fi
+# Load bash completions
+if [ -f /usr/local/etc/bash_completion ]; then
+    . /usr/local/etc/bash_completion
 fi
-
-# Setup Rust environment
-which rustc > /dev/null 2>&1
-if [[ $? -eq 0 ]]; then
-    export PATH="$PATH:$HOME/.cargo/bin"
-fi
-
-# Setup git autocompletion and tree status reporting
-if [ -r $HOME/.git-completion.sh ]; then
-    . $HOME/.git-completion.sh
-fi
-
-#if [ -r $HOME/.git-prompt.sh ]; then
-#    . $HOME/.git-prompt.sh
-#    export PS1="$PS1 \$(__git_ps1 \"(%s)\") "
-#fi
 
 # setup GPG 2.1
-SSH_AUTH_SOCK="$HOME/.gnupg/S.gpg-agent.ssh"
-export SSH_AUTH_SOCK
-if [ ! -r $SSH_AUTH_SOCK ]; then
-    /usr/local/bin/gpg-agent --daemon > /dev/null 2>&1
-fi
-
-# setup pre GPG 2.1
-# GPG_AGENT_FILE="$HOME/.gpg-agent-info"
-# /usr/local/bin/gpg-agent --daemon --enable-ssh-support --write-env-file > /dev/null 2>&1
-# if [ -r $GPG_AGENT_FILE ]; then
-    # PID=`grep SSH_AGENT_PID $GPG_AGENT_FILE | cut -d= -f2 2>/dev/null`
-    # `kill -0 $PID 2>/dev/null`
-    # res=$?
-
-    # if [ $res -eq 1 ]; then
-        # /usr/local/bin/gpg-agent --daemon --enable-ssh-support --write-env-file > /dev/null 2>&1
-        # PID=`grep SSH_AGENT_PID $GPG_AGENT_FILE | cut -d= -f2 2>/dev/null`
-        # `kill -0 $PID 2>/dev/null`
-        # res=$?
-    # fi
-
-    # if [ $res -eq 0 ]; then
-        # source $GPG_AGENT_FILE
-        # export GPG_AGENT_INFO
-        # export SSH_AUTH_SOCK
-        # export SSH_AGENT_PID
-        # export GPG_TTY=`tty`
-    # fi
+# which gpg-agent > /dev/null 2>&1
+# if [[ $? -eq 0 ]]; then
+    # SSH_AUTH_SOCK="$HOME/.gnupg/S.gpg-agent.ssh"
+    # export SSH_AUTH_SOCK
+    # /usr/local/bin/gpg-agent --daemon > /dev/null 2>&1
 # fi
