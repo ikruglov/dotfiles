@@ -1,6 +1,9 @@
 [user]
     name = Ivan Kruglov
-    email = ivan.kruglov@yahoo.com
+    email = mail@ikruglov.com
+
+[includeIf "gitdir:~/src/slurm-sre/"]
+    path = ~/src/slurm-sre/.gitconfig
 
 [alias]
     co = checkout
@@ -10,12 +13,26 @@
     lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
     loglive = !git --no-pager log --graph --pretty=oneline --decorate --abbrev-commit --all
     gr = log --color --date=relative --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --source --all --abbrev-commit -S 
+    ;; Diff
+    di = diff -M -p --stat
+    diw = diff -M -p --stat -w
+    diww = diff -M -p --stat -w --word-diff=color
+    diwwd = diff -M -p --stat -w --word-diff=color --word-diff-regex=.
+    dis = diff -M -p --stat --staged
+    disw = diff -M -p --stat --staged -w
+    disww = diff -M -p --stat --staged -w --word-diff=color
+    diswwd = diff -M -p --stat --staged -w --word-diff=color --word-diff-regex=.
+    ;; Show
+    s = show -M -p --stat
+    sw = show -M -p --stat -w
+    sww = show -M -p --stat -w --word-diff=color
+    swwd = show -M -p --stat -w --word-diff=color --word-diff-regex=.
 
 [merge]
 #    conflictstyle = diff3
 
 [rerere]
-    enabled = true
+#    enabled = true
 
 [color]
     ui = auto
