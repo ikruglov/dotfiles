@@ -24,11 +24,22 @@ export HISTCONTROL="ignoredups:ignorespace"
 export HISTFILESIZE=100000
 export HISTSIZE=100000
 
-# Setup ls colors
+# Setup colors
 if [ -r $HOME/.bash_colors ]; then
     . $HOME/.bash_colors
 fi
 
+# Setup PS1 colors
+export PS1_COLOR=$Green
+if [[ $(id -nu) == 'ivan.kruglov' ]] || [[ $(id -nu) == 'ikruglov' ]]; then
+    export PS1="\[$PS1_COLOR\]\h\[$IBlue\] \W\[$Cyan\] $ \[$Color_Off\]"
+elif [[ $(id -u) -eq 0 ]]; then
+    export PS1="\[$On_IRed\]\u\[$Color_Off\] \[$PS1_COLOR\]\h\[$IBlue\] \W\[$Cyan\] $ \[$Color_Off\]"
+else
+    export PS1="\[$IRed\]\u\[$Color_Off\] \[$PS1_COLOR\]\h\[$IBlue\] \W\[$Cyan\] $ \[$Color_Off\]"
+fi
+
+# Setup ls colors
 export CLICOLOR=1
 if [[ $os == 'Darwin' || $os == 'FreeBSD' ]]; then
     export LSCOLORS='ExGxfxfxCxdxdxBxBxExEx'
