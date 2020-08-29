@@ -19,6 +19,10 @@ if [[ $os == 'Darwin' ]]; then
     export PATH="/usr/local/sbin:/opt/local/bin:/opt/local/sbin:$PATH"
 fi
 
+if [[ -r "$HOME/go/bin" ]]; then
+    export PATH="$HOME/go/bin:$PATH"
+fi
+
 export HISTTIMEFORMAT="%Y-%m-%d %H:%M:%S:"
 export HISTCONTROL="ignoredups:ignorespace"
 export HISTFILESIZE=100000
@@ -72,3 +76,5 @@ fi
     # export SSH_AUTH_SOCK
     # /usr/local/bin/gpg-agent --daemon > /dev/null 2>&1
 # fi
+
+export BASH_SILENCE_DEPRECATION_WARNING=1
