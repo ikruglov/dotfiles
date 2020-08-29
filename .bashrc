@@ -61,12 +61,16 @@ if [ -r $HOME/.bash_corporate ]; then
 fi
 
 if [ -r $HOME/.bash_secrets ]; then
-    source $HOME/.bash_secrets
+    . $HOME/.bash_secrets
 fi
 
 # Load bash completions
-if [ -f /usr/local/etc/bash_completion ]; then
+if [ -r /usr/local/etc/bash_completion ]; then
     . /usr/local/etc/bash_completion
+fi
+
+if [ -r /usr/local/etc/profile.d/bash_completion.sh ]; then
+    . /usr/local/etc/profile.d/bash_completion.sh
 fi
 
 # setup GPG 2.1
