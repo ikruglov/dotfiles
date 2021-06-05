@@ -118,6 +118,8 @@ set autoindent
 set smartindent
 
 autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
+autocmd FileType jsonnet setlocal ts=2 sts=2 sw=2 expandtab
+autocmd BufEnter *.TEMPLATE :setlocal filetype=jsonnet
 
 """"""""""""""""""""""""""""""
 " => Status line
@@ -217,3 +219,4 @@ let g:syntastic_check_on_wq = 1
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
+set mmp=2000
