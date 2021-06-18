@@ -35,8 +35,10 @@ fi
 
 # Setup PS1 colors
 export PS1_COLOR=$Green
-if [[ $(id -nu) == 'ivan.kruglov' ]] || [[ $(id -nu) == 'ikruglov' ]]; then
+if [[ $(id -nu) == 'ikruglov' ]]; then
     export PS1="\[$PS1_COLOR\]\h\[$IBlue\] \W\[$Cyan\] $ \[$Color_Off\]"
+elif [[ $(id -nu) == 'ivan.kruglov' ]]; then
+    export PS1="\[$PS1_COLOR\]\h\$(kube_ps1)\[$IBlue\] \W\[$Cyan\] $ \[$Color_Off\]"
 elif [[ $(id -u) -eq 0 ]]; then
     export PS1="\[$On_IRed\]\u\[$Color_Off\] \[$PS1_COLOR\]\h\[$IBlue\] \W\[$Cyan\] $ \[$Color_Off\]"
 else
