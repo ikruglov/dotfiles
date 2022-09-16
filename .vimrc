@@ -216,6 +216,12 @@ let g:syntastic_auto_loc_list = 0
 let g:syntastic_check_on_open = 0
 let g:syntastic_check_on_wq = 1
 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => jsonnet
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:jsonnet_fmt_options = " --string-style l --comment-style l"
+let g:jsonnet_fmt_fail_silently = 0
+
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*

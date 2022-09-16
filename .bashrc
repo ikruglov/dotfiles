@@ -15,6 +15,7 @@ os=$(uname -s)
 export EDITOR=vim
 export LANG=en_US.UTF-8
 export PATH="$HOME/bin:$PATH:/sbin:/usr/sbin"
+export PATH="/usr/local/opt/mysql-client/bin:$PATH"
 if [[ $os == 'Darwin' ]]; then
     export PATH="/usr/local/sbin:/opt/local/bin:/opt/local/sbin:$PATH"
 fi
