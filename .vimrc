@@ -82,7 +82,8 @@ endif
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Enable syntax highlighting
 syntax enable
-colorscheme darkblue
+"colorscheme darkblue
+colorscheme default
 set encoding=utf8
 
 " Highlight current line
