@@ -20,10 +20,12 @@ if [[ $os == 'Linux' ]]; then
 fi
 
 export EDITOR=vim
+export TERM=xterm-256color
 export PATH="$HOME/bin:$PATH:/sbin:/usr/sbin"
 export PATH="/usr/local/opt/mysql-client/bin:$PATH"
 if [[ $os == 'Darwin' ]]; then
     export PATH="/usr/local/sbin:/opt/local/bin:/opt/local/sbin:$PATH"
+    export PATH="/usr//local/Cellar/mysql-client/8.0.22/bin/:$PATH"
 fi
 
 if [[ -r "$HOME/go/bin" ]]; then

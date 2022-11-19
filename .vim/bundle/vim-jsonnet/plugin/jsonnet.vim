@@ -3,11 +3,10 @@
 " A plugin for jsonnet files.
 " Install useful tools for *.jsonnet and *.libsonnet files
 
-
-
-
-
-
+if exists('g:loaded_jsonnet')
+  finish
+endif
+let g:loaded_jsonnet = 1
 
 function! s:fmtAutosave()
   " Jsonnet code formatting on save
@@ -29,3 +28,4 @@ augroup vim-jsonnet
    autocmd BufWritePre *.libsonnet call s:fmtAutosave()
 augroup END
 
+command! -range JsonnetFmtVis call jsonnet#FormatVisual()
