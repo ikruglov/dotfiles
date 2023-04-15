@@ -12,8 +12,14 @@ fi
 os=$(uname -s)
 
 # General settings
-export EDITOR=vim
 export LANG=en_US.UTF-8
+if grep -q -i rasp /etc/os-release; then
+    export LANG=en_GB.UTF-8
+    export LANGUAGE=en_GB.UTF-8
+    export LC_ALL=en_GB.UTF-8
+fi
+
+export EDITOR=vim
 export PATH="$HOME/bin:$PATH:/sbin:/usr/sbin"
 export PATH="/usr/local/opt/mysql-client/bin:$PATH"
 if [[ $os == 'Darwin' ]]; then
