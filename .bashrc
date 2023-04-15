@@ -13,7 +13,7 @@ os=$(uname -s)
 
 # General settings
 export LANG=en_US.UTF-8
-if grep -q -i rasp /etc/os-release; then
+if [[ $os == 'Linux' ]]; then
     export LANG=en_GB.UTF-8
     export LANGUAGE=en_GB.UTF-8
     export LC_ALL=en_GB.UTF-8
