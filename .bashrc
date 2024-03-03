@@ -10,6 +10,7 @@ if [ -f $HOME/.ssh/config ]; then
 fi
 
 os=$(uname -s)
+umask 0022
 
 # General settings
 export LANG=en_US.UTF-8
@@ -25,7 +26,6 @@ export PATH="$HOME/bin:$PATH:/sbin:/usr/sbin"
 export PATH="/usr/local/opt/mysql-client/bin:$PATH"
 if [[ $os == 'Darwin' ]]; then
     export PATH="/usr/local/sbin:/opt/local/bin:/opt/local/sbin:$PATH"
-    export PATH="/usr//local/Cellar/mysql-client/8.0.22/bin/:$PATH"
 fi
 
 if [[ -r "$HOME/go/bin" ]]; then
@@ -84,9 +84,13 @@ if [ -r /usr/local/etc/profile.d/bash_completion.sh ]; then
     . /usr/local/etc/profile.d/bash_completion.sh
 fi
 
+# SSH agent
+if which -s ssh-agent; then
+    eval `ssh-agent -k 2>/dev/null`
+fi
+
 # setup GPG 2.1
-# which gpg-agent > /dev/null 2>&1
-# if [[ $? -eq 0 ]]; then
+# if which -s gpg-agent; then
     # SSH_AUTH_SOCK="$HOME/.gnupg/S.gpg-agent.ssh"
     # export SSH_AUTH_SOCK
     # /usr/local/bin/gpg-agent --daemon > /dev/null 2>&1
